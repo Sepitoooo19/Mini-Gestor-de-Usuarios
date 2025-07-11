@@ -6,6 +6,7 @@ import (
 	"go-template/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"log"
 )
 
 // UsersCollection es la colección de usuarios en MongoDB
@@ -19,8 +20,23 @@ func InitUsersService() {
 
 // CreateUser crea un nuevo usuario en la colección de usuarios
 func CreateUser(user models.Users) error {
-	_, err := UsersCollection.InsertOne(context.Background(), user)
-	return err
+	// Verificar si la colección está inicializada
+	if UsersCollection == nil {
+		return errors.New("UsersCollection no está inicializada")
+	}
+
+	log.Printf("DEBUG - Creando usuario: ID=%s, Name=%s, Email=%s, CreatedAt=%v", 
+		user.ID, user.Name, user.Email, user.CreatedAt)
+	
+	// Insertar el usuario en MongoDB
+	result, err := UsersCollection.InsertOne(context.Background(), user)
+	if err != nil {
+		log.Printf("ERROR - Falló la inserción en MongoDB: %v", err)
+		return err
+	}
+	
+	log.Printf("SUCCESS - Usuario insertado con ID: %v", result.InsertedID)
+	return nil
 }
 
 // GetUsers obtiene todos los usuarios de la colección de usuarios
@@ -32,9 +48,12 @@ func GetUsers() ([]models.Users, error) {
 		return nil, errors.New("UsersCollection no está inicializada")
 	}
 
+	log.Printf("DEBUG - Obteniendo todos los usuarios")
+
 	// Crear un cursor para iterar sobre los documentos en la colección de usuarios
 	cursor, err := UsersCollection.Find(context.Background(), bson.M{})
 	if err != nil {
+		log.Printf("ERROR - Error al obtener usuarios: %v", err)
 		return nil, err
 	}
 	// Se cierra el cursor al final de la función para liberar recursos
@@ -44,12 +63,19 @@ func GetUsers() ([]models.Users, error) {
 	for cursor.Next(context.Background()) {
 		var user models.Users
 		if err := cursor.Decode(&user); err != nil {
-			return nil, err
+			log.Printf("ERROR - Error al decodificar usuario: %v", err)
+			continue // Continúa con el siguiente documento en lugar de fallar completamente
 		}
 		users = append(users, user)
 	}
 
-	//Retornar la lista de usuarios si no hay errores, si hay errores, se retornará nil
+	// Verificar si hubo errores durante la iteración
+	if err := cursor.Err(); err != nil {
+		log.Printf("ERROR - Error durante la iteración del cursor: %v", err)
+		return nil, err
+	}
+
+	log.Printf("SUCCESS - Se obtuvieron %d usuarios", len(users))
 	return users, nil
 }
 
@@ -62,16 +88,28 @@ func GetUserByID(id string) (models.Users, error) {
 		return user, errors.New("UsersCollection no está inicializada")
 	}
 
+	// Validar que el ID no esté vacío
+	if id == "" {
+		return user, errors.New("ID no puede estar vacío")
+	}
+
 	// Se realiza una búsqueda en la colección de usuarios utilizando el ID proporcionado
 	filter := bson.M{"_id": id}
+
+	log.Printf("DEBUG - Buscando usuario con ID: %s", id)
 
 	// Se utiliza FindOne para buscar un único documento que coincida con el filtro
 	err := UsersCollection.FindOne(context.Background(), filter).Decode(&user)
 
 	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			log.Printf("DEBUG - Usuario no encontrado con ID: %s", id)
+			return user, errors.New("usuario no encontrado")
+		}
+		log.Printf("ERROR - Error al buscar usuario: %v", err)
 		return user, err
 	}
 
-	// Si se encuentra el usuario, se retorna; de lo contrario, se retorna un error
+	log.Printf("SUCCESS - Usuario encontrado: %s", user.Name)
 	return user, nil
 }
