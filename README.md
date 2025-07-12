@@ -1,20 +1,31 @@
 # Mini-Gestor-de-Usuarios
 
-API REST para la gestión de usuarios desarrollada en Go con Gin framework y MongoDB.
+API REST para la gestión de usuarios desarrollada en Go con MongoDB.
 
 ## Requisitos previos
 
 - Go 1.23.0 o superior
 - MongoDB ejecutándose en localhost:27017
 - Puerto 8080 disponible
+- IDE recomendado: GoLand o VS Code
 
 ## Instalación y ejecución
 
 ### 1. Clonar el repositorio
+
+**Usando Git desde terminal:**
 ```bash
 git clone https://github.com/Sepitoooo19/Mini-Gestor-de-Usuarios.git
 cd Mini-Gestor-de-Usuarios
 ```
+
+**Usando GitKraken:**
+1. Abrir GitKraken
+2. Hacer clic en "Clone a repo"
+3. Seleccionar "Clone with URL"
+4. Pegar la URL: `https://github.com/Sepitoooo19/Mini-Gestor-de-Usuarios.git`
+5. Elegir la carpeta de destino
+6. Hacer clic en "Clone the repo!"
 
 ### 2. Sincronizar dependencias
 ```bash
@@ -24,20 +35,12 @@ Este comando descarga e instala todas las dependencias necesarias del proyecto.
 
 ### 3. Compilar el proyecto
 ```bash
-go build -o mini-gestor.exe
+go build
 ```
-Esto genera un ejecutable llamado `mini-gestor.exe`.
 
 ### 4. Ejecutar el proyecto
-
-**Opción A: Ejecutar directamente**
 ```bash
 go run main.go
-```
-
-**Opción B: Ejecutar el compilado**
-```bash
-./mini-gestor.exe
 ```
 
 El servidor se iniciará en `http://localhost:8080`
