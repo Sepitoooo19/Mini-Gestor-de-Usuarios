@@ -36,6 +36,18 @@ Crear la base de datos y colección necesarias:
 2. Crear nueva base de datos llamada `Mongo`
 3. Dentro de la base de datos, crear una colección llamada `users`
 
+#### Poblar la base de datos con datos de ejemplo
+
+El proyecto incluye un archivo `sample_users.json` con datos de ejemplo.
+
+**Importar usando MongoDB Compass:**
+1. En MongoDB Compass, navegar a la base de datos `Mongo`
+2. Hacer clic en la colección `users`
+3. Hacer clic en "ADD DATA" → "Import JSON or CSV file"
+4. Seleccionar el archivo `sample_users.json`
+5. Hacer clic en "Import"
+
+
 
 
 ### 3. Sincronizar dependencias

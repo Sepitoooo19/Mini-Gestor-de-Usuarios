@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "68709e82b604eb943a6ab47f",
+    "name": "John Doe",
+    "email": "johndoe@example.com",
+    "birthdate": "1990-01-01",
+    "created_at": "2025-07-11T05:17:54.934+00:00"
+  },
+  {
+    "_id": "68709e82b604eb943a6ab480",
+    "name": "Jane Smith",
+    "email": "janesmith@example.com",
+    "birthdate": "1985-03-15",
+    "created_at": "2025-07-11T05:20:30.120+00:00"
+  },
+  {
+    "_id": "68709e82b604eb943a6ab481",
+    "name": "Carlos Rodriguez",
+    "email": "carlos.rodriguez@email.com",
+    "birthdate": "1992-12-08",
+    "created_at": "2025-07-11T05:22:45.678+00:00"
+  },
+  {
+    "_id": "68709e82b604eb943a6ab482",
+    "name": "Ana Martinez",
+    "email": "ana.martinez@correo.com",
+    "birthdate": "1988-07-22",
+    "created_at": "2025-07-11T05:25:10.890+00:00"
+  },
+  {
+    "_id": "68709e82b604eb943a6ab483",
+    "name": "Roberto Silva",
+    "email": "roberto.silva@empresa.com",
+    "birthdate": "1995-11-30",
+    "created_at": "2025-07-11T05:27:33.445+00:00"
+  }
+]
