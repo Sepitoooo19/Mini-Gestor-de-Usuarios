@@ -27,18 +27,29 @@ cd Mini-Gestor-de-Usuarios
 5. Elegir la carpeta de destino
 6. Hacer clic en "Clone the repo!"
 
-### 2. Sincronizar dependencias
+### 2. Configurar MongoDB
+
+Crear la base de datos y colección necesarias:
+
+**Usando MongoDB Compass:**
+1. Conectar a `mongodb://localhost:27017`
+2. Crear nueva base de datos llamada `Mongo`
+3. Dentro de la base de datos, crear una colección llamada `users`
+
+
+
+### 3. Sincronizar dependencias
 ```bash
 go mod tidy
 ```
 Este comando descarga e instala todas las dependencias necesarias del proyecto.
 
-### 3. Compilar el proyecto
+### 4. Compilar el proyecto
 ```bash
 go build
 ```
 
-### 4. Ejecutar el proyecto
+### 5. Ejecutar el proyecto
 ```bash
 go run main.go
 ```
