@@ -11,6 +11,7 @@ import (
 
 var Client *mongo.Client
 
+// InitMongo establece la conexión con MongoDB
 func InitMongo() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
