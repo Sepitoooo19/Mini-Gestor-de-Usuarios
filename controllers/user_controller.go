@@ -53,16 +53,11 @@ func GetUsers(c *gin.Context) {
 	var formattedUsers []gin.H
 	for _, user := range users {
 		formattedUser := gin.H{
-			"id":        user.ID,
-			"name":      user.Name,
-			"email":     user.Email,
-			"birthdate": user.Birthdate,
-		}
-		
-		if !user.CreatedAt.IsZero() {
-			formattedUser["created_at"] = user.CreatedAt.Format(time.RFC3339)
-		} else {
-			formattedUser["created_at"] = nil
+			"id":         user.ID,
+			"name":       user.Name,
+			"email":      user.Email,
+			"birthdate":  user.Birthdate,
+			"created_at": user.CreatedAt.Format(time.RFC3339),
 		}
 		
 		formattedUsers = append(formattedUsers, formattedUser)
